@@ -61,20 +61,20 @@ const VideoWidget = () => {
 
             {/* Video Duration Badge */}
             <div className="absolute bottom-4 right-4 bg-black bg-opacity-80 text-white text-xs px-2 py-1 rounded">
-              16:42
+              26:01
             </div>
             
             {/* Video Info Overlay */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/50 to-transparent p-4">
               <h4 className="text-white text-lg font-semibold mb-1 line-clamp-2">
-                How AI Will Change Programming Forever
+                Building an AI Agent with function calling step-by-step (in 26 minutes)
               </h4>
               <div className="flex items-center text-gray-300 text-sm space-x-2">
-                <span>Fireship</span>
+                <span>Nicholas Renotte</span>
                 <span>•</span>
-                <span>1.2M views</span>
+                <span>23K views</span>
                 <span>•</span>
-                <span>3 months ago</span>
+                <span>3 weeks ago</span>
               </div>
             </div>
           </div>
@@ -85,9 +85,9 @@ const VideoWidget = () => {
       <div className="space-y-3">
         <div className="rounded-lg p-4 mx-0 my-0 py-[7px] bg-zinc-900">
           <p className="leading-relaxed text-slate-300 font-thin">
-            "I found this fascinating video about AI and programming that perfectly matches your interests. 
-            This discusses how AI is revolutionizing software development, 
-            which seems highly relevant to the tech topics you've been exploring. 
+            "I found this fascinating video about building AI agents that perfectly matches your interests. 
+            This tutorial shows how to build an AI agent with function calling capabilities step-by-step, 
+            which seems highly relevant to your AI development interests. 
             Would you like me to find more content like this?"
           </p>
         </div>
