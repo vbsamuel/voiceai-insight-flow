@@ -21,8 +21,8 @@ const ThoughtProcessSidebar = ({
           <div className="space-y-4">
             {thoughts.map((thought, index) => <div key={index} style={{
             animationDelay: `${index * 0.2}s`
-          }} className="p-3 bg-slate-100 rounded-lg animate-fade-in">
-                <p className="text-sm text-slate-700">{thought}</p>
+          }} className="p-3 rounded-lg animate-fade-in bg-zinc-900 border border-gray-700">
+                <p className="text-sm text-slate-200">{thought}</p>
               </div>)}
 
             {thoughts.length === 0 && <div className="text-center text-slate-500 mt-8">
