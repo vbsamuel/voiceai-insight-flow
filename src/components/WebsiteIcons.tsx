@@ -50,18 +50,7 @@ const websites = [{
 const WebsiteIcons = () => {
   return <div className="w-full">
       
-      <div className="grid grid-cols-6 gap-3 max-w-2xl mx-auto">
-        {websites.map((website, index) => <div key={website.name} className={`
-              ${website.color} 
-              w-12 h-12 rounded-lg flex items-center justify-center text-white text-lg
-              shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110
-              animate-fade-in
-            `} style={{
-        animationDelay: `${index * 50}ms`
-      }} title={website.name}>
-            {website.icon}
-          </div>)}
-      </div>
+      
     </div>;
 };
 export default WebsiteIcons;
