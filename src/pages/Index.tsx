@@ -55,7 +55,7 @@ const Index = () => {
 
             {/* State Text */}
             <div className="text-center">
-              <h2 className="text-2xl font-semibold mb-2 text-slate-50">{getStateText()}</h2>
+              
               {currentState === 'idle' && <p className="mb-6 text-slate-50">Click the button below to start your voice search</p>}
             </div>
 
