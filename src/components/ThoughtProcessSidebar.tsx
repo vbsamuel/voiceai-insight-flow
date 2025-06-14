@@ -1,4 +1,3 @@
-
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 
@@ -16,7 +15,7 @@ const ThoughtProcessSidebar = ({
       "w-80 bg-white bg-opacity-95 backdrop-blur-sm border-l border-slate-200 transition-all duration-500 ease-in-out",
       isVisible ? "translate-x-0" : "translate-x-full"
     )}>
-      <div className="p-6 bg-zinc-900">
+      <div className="p-6" style={{ backgroundColor: '#18181b' }}>
         <div className="flex items-center space-x-2 mb-6">
           <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
           <h3 className="text-lg font-semibold text-white">AI Thought Process</h3>
