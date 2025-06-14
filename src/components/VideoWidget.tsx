@@ -2,7 +2,11 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 
-const VideoWidget = () => {
+interface VideoWidgetProps {
+  searchCycle: number;
+}
+
+const VideoWidget = ({ searchCycle }: VideoWidgetProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
@@ -18,9 +22,37 @@ const VideoWidget = () => {
     return () => clearTimeout(speakingTimer);
   }, []);
 
-  const youtubeVideoId = "ftJ9cyYrLbY";
-  const embedUrl = `https://www.youtube.com/embed/${youtubeVideoId}?autoplay=${isPlaying ? 1 : 0}&rel=0`;
-  const thumbnailUrl = `https://img.youtube.com/vi/${youtubeVideoId}/maxresdefault.jpg`;
+  // Reset playing state when search cycle changes
+  useEffect(() => {
+    setIsPlaying(false);
+  }, [searchCycle]);
+
+  // Different videos for different search cycles
+  const getVideoData = () => {
+    if (searchCycle === 1) {
+      return {
+        videoId: "ftJ9cyYrLbY",
+        title: "How AI Will Change Programming Forever",
+        channel: "Fireship",
+        views: "1.2M views",
+        duration: "3 months ago",
+        commentary: "I found this fascinating video about AI and programming that perfectly matches your interests. This discusses how AI is revolutionizing software development, which seems highly relevant to the tech topics you've been exploring. Would you like me to find more content like this?"
+      };
+    } else {
+      return {
+        videoId: "vmy3HgaKJsY",
+        title: "The Future of Programming - AI Code Generation",
+        channel: "TechLead",
+        views: "850K views",
+        duration: "2 months ago",
+        commentary: "Here's a different perspective on AI and programming. This video explores code generation tools and their impact on developers. Perhaps this approach to AI programming content is more aligned with what you're looking for?"
+      };
+    }
+  };
+
+  const videoData = getVideoData();
+  const embedUrl = `https://www.youtube.com/embed/${videoData.videoId}?autoplay=${isPlaying ? 1 : 0}&rel=0`;
+  const thumbnailUrl = `https://img.youtube.com/vi/${videoData.videoId}/maxresdefault.jpg`;
 
   return (
     <div className="rounded-2xl shadow-xl p-6 animate-fade-in bg-zinc-950">
@@ -47,10 +79,10 @@ const VideoWidget = () => {
             {/* Video Info Overlay */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
               <h4 className="text-white text-lg font-semibold mb-1">
-                How AI Will Change Programming Forever
+                {videoData.title}
               </h4>
               <p className="text-gray-200 text-sm">
-                Fireship • 1.2M views • 3 months ago
+                {videoData.channel} • {videoData.views} • {videoData.duration}
               </p>
             </div>
 
@@ -71,10 +103,7 @@ const VideoWidget = () => {
       <div className="space-y-3">
         <div className="rounded-lg p-4 mx-0 my-0 py-[7px] bg-zinc-900">
           <p className="leading-relaxed text-slate-300 font-thin">
-            "I found this fascinating video about AI and programming that perfectly matches your interests. 
-            This discusses how AI is revolutionizing software development, 
-            which seems highly relevant to the tech topics you've been exploring. 
-            Would you like me to find more content like this?"
+            "{videoData.commentary}"
           </p>
         </div>
       </div>
