@@ -8,7 +8,7 @@ const ThoughtProcessSidebar = ({
   thoughts,
   isVisible
 }: ThoughtProcessSidebarProps) => {
-  return <div className={cn("w-80 bg-white bg-opacity-95 backdrop-blur-sm border-l border-slate-200 transition-all duration-500 ease-in-out", isVisible ? "translate-x-0" : "translate-x-full")}>
+  return <div className="">
       <div className="p-6" style={{
       backgroundColor: '#18181b'
     }}>
