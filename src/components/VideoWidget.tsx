@@ -1,7 +1,6 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Play } from 'lucide-react';
 
 const VideoWidget = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -20,12 +19,12 @@ const VideoWidget = () => {
   }, []);
 
   const youtubeVideoId = "ftJ9cyYrLbY";
-  const embedUrl = `https://www.youtube.com/embed/${youtubeVideoId}?autoplay=${isPlaying ? 1 : 0}&rel=0&modestbranding=1`;
+  const embedUrl = `https://www.youtube.com/embed/${youtubeVideoId}?autoplay=${isPlaying ? 1 : 0}&rel=0`;
   const thumbnailUrl = `https://img.youtube.com/vi/${youtubeVideoId}/maxresdefault.jpg`;
 
   return (
     <div className="rounded-2xl shadow-xl p-6 animate-fade-in bg-zinc-950">
-      <div className="aspect-video bg-black rounded-xl mb-4 relative overflow-hidden">
+      <div className="aspect-video bg-gradient-to-br from-blue-900 to-purple-900 rounded-xl mb-4 relative overflow-hidden">
         {/* Real YouTube video */}
         {isPlaying ? (
           <iframe
@@ -37,45 +36,32 @@ const VideoWidget = () => {
             className="w-full h-full rounded-xl"
           />
         ) : (
-          <div className="relative w-full h-full bg-black">
+          <div className="relative w-full h-full">
             {/* YouTube Thumbnail */}
             <img 
               src={thumbnailUrl}
               alt="Video thumbnail"
               className="w-full h-full object-cover rounded-xl"
-              onError={(e) => {
-                // Fallback to a different resolution if maxres fails
-                e.currentTarget.src = `https://img.youtube.com/vi/${youtubeVideoId}/hqdefault.jpg`;
-              }}
             />
             
-            {/* YouTube Play Button Overlay */}
+            {/* Video Info Overlay */}
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+              <h4 className="text-white text-lg font-semibold mb-1">
+                How AI Will Change Programming Forever
+              </h4>
+              <p className="text-gray-200 text-sm">
+                Fireship • 1.2M views • 3 months ago
+              </p>
+            </div>
+
+            {/* YouTube Play Button */}
             <div className="absolute inset-0 flex items-center justify-center">
               <Button 
                 onClick={() => setIsPlaying(true)} 
-                className="bg-red-600 hover:bg-red-700 text-white rounded-full w-20 h-20 p-0 shadow-2xl transition-all duration-200 hover:scale-110"
+                className="bg-red-600 hover:bg-red-700 text-white rounded-full w-16 h-16 p-0 shadow-lg"
               >
-                <Play className="w-8 h-8 ml-1" fill="white" />
+                <div className="w-0 h-0 border-l-[12px] border-l-white border-y-[8px] border-y-transparent ml-1" />
               </Button>
-            </div>
-
-            {/* Video Duration Badge */}
-            <div className="absolute bottom-4 right-4 bg-black bg-opacity-80 text-white text-xs px-2 py-1 rounded">
-              16:42
-            </div>
-            
-            {/* Video Info Overlay */}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/50 to-transparent p-4">
-              <h4 className="text-white text-lg font-semibold mb-1 line-clamp-2">
-                How AI Will Change Programming Forever
-              </h4>
-              <div className="flex items-center text-gray-300 text-sm space-x-2">
-                <span>Fireship</span>
-                <span>•</span>
-                <span>1.2M views</span>
-                <span>•</span>
-                <span>3 months ago</span>
-              </div>
             </div>
           </div>
         )}
