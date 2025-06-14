@@ -13,8 +13,8 @@ const ThoughtProcessSidebar = ({
       backgroundColor: '#18181b'
     }}>
         <div className="flex items-center space-x-2 mb-6">
-          <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-          <h3 className="text-lg font-semibold text-white">AI Thought Process</h3>
+          
+          
         </div>
 
         <ScrollArea className="h-[calc(100vh-120px)]">
