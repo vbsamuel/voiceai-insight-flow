@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play } from 'lucide-react';
@@ -134,28 +133,32 @@ const VideoWidget = ({ searchCycle }: VideoWidgetProps) => {
         )}
       </div>
 
-      {/* Website Icons */}
-      <div className="flex justify-center space-x-6 mb-4">
-        {websiteIcons.map((website, index) => (
-          <div
-            key={website.name}
-            className="w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-200 hover:scale-110 cursor-pointer"
-          >
-            <img 
-              src={website.icon} 
-              alt={website.name}
-              className="w-8 h-8 object-contain"
-            />
-          </div>
-        ))}
-      </div>
-
       {/* AI Commentary */}
-      <div className="space-y-3">
+      <div className="space-y-3 mb-4">
         <div className="rounded-lg p-4 mx-0 my-0 py-[7px] bg-zinc-900">
           <p className="leading-relaxed text-slate-300 font-thin">
             "{videoData.commentary}"
           </p>
+        </div>
+      </div>
+
+      {/* Sources and Website Icons */}
+      <div className="flex items-center">
+        <span className="text-slate-300 text-sm font-medium mr-3">Sources</span>
+        <div className="flex -space-x-2">
+          {websiteIcons.map((website, index) => (
+            <div
+              key={website.name}
+              className="w-8 h-8 rounded-full overflow-hidden shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110 cursor-pointer border-2 border-zinc-950"
+              style={{ zIndex: websiteIcons.length - index }}
+            >
+              <img 
+                src={website.icon} 
+                alt={website.name}
+                className="w-full h-full object-contain"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </div>
