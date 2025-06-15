@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play } from 'lucide-react';
 
@@ -9,6 +9,34 @@ interface VideoWidgetProps {
 const VideoWidget = ({ searchCycle }: VideoWidgetProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Play audio when first video appears
+  useEffect(() => {
+    if (searchCycle === 1) {
+      const audio = new Audio('../../audios/first.mp3');
+      audioRef.current = audio;
+      audio.play().catch(error => {
+        console.error('Error playing audio:', error);
+      });
+    } else {
+      const audio = new Audio('../../audios/second.mp3');
+      audioRef.current = audio;
+      audio.play().catch(error => {
+        console.error('Error playing audio:', error);
+      });
+    }
+  }, [searchCycle]);
+
+  // Cleanup audio when component unmounts
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
 
   // Simulate AI speaking
   useEffect(() => {
