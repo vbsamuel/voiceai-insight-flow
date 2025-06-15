@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play } from 'lucide-react';
@@ -10,6 +9,16 @@ interface VideoWidgetProps {
 const VideoWidget = ({ searchCycle }: VideoWidgetProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+
+  // Website icons data
+  const websites = [
+    { name: 'YouTube', icon: '📺', color: 'bg-red-500' },
+    { name: 'Reddit', icon: '🤖', color: 'bg-orange-500' },
+    { name: 'Twitter', icon: '🐦', color: 'bg-blue-400' },
+    { name: 'BBC News', icon: '📺', color: 'bg-red-700' },
+    { name: 'CNN', icon: '📰', color: 'bg-red-600' },
+    { name: 'The Verge', icon: '🔮', color: 'bg-purple-600' }
+  ];
 
   // Simulate AI speaking
   useEffect(() => {
@@ -113,6 +122,18 @@ const VideoWidget = ({ searchCycle }: VideoWidgetProps) => {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Website Icons */}
+      <div className="flex justify-center space-x-4 mb-4">
+        {websites.map((website, index) => (
+          <div
+            key={website.name}
+            className={`w-12 h-12 rounded-full ${website.color} flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200 cursor-pointer`}
+          >
+            <span className="text-white text-lg">{website.icon}</span>
+          </div>
+        ))}
       </div>
 
       {/* AI Commentary */}
