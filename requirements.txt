@@ -1,0 +1,6 @@
+resemble
+requests
+playsound
+pygame
+pydub
+ffmpeg-python
