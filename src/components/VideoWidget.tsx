@@ -79,10 +79,7 @@ const VideoWidget = ({ searchCycle }: VideoWidgetProps) => {
               className="w-full h-full object-cover rounded-xl"
               onError={(e) => {
                 // Fallback to a different resolution if maxres fails
-                const target = e.currentTarget;
-                if (target.src.includes('maxresdefault')) {
-                  target.src = `https://img.youtube.com/vi/${videoData.videoId}/hqdefault.jpg`;
-                }
+                e.currentTarget.src = `https://img.youtube.com/vi/${videoData.videoId}/hqdefault.jpg`;
               }}
             />
             
