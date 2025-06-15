@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import ListeningCircle from '../components/ListeningCircle';
 import WebsiteIcons from '../components/WebsiteIcons';
@@ -6,59 +5,26 @@ import VideoWidget from '../components/VideoWidget';
 import ThoughtProcessSidebar from '../components/ThoughtProcessSidebar';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-
 type AppState = 'idle' | 'listening' | 'searching' | 'results';
-
 const Index = () => {
   const [currentState, setCurrentState] = useState<AppState>('idle');
   const [thoughtLogs, setThoughtLogs] = useState<string[]>([]);
-  const [searchCycle, setSearchCycle] = useState(1);
-
   const startListening = () => {
     setCurrentState('listening');
-    if (searchCycle === 1) {
-      setThoughtLogs(['Starting voice recognition...']);
-    } else {
-      setThoughtLogs(prev => [...prev, 'User didn\'t like what I suggested, so I\'m going to search something else', 'Listening for new preferences...']);
-    }
-    
+    setThoughtLogs(['Starting voice recognition...']);
     setTimeout(() => {
       setCurrentState('searching');
-      if (searchCycle === 1) {
-        setThoughtLogs(prev => [...prev, 'Processing voice input... analyzing user interests']);
-      } else {
-        setThoughtLogs(prev => [...prev, 'Analyzing different user preferences...', 'Looking for alternative content suggestions...']);
-      }
-      
+      setThoughtLogs(prev => [...prev, 'Processing voice input... analyzing user interests']);
       setTimeout(() => {
         setCurrentState('results');
-        if (searchCycle === 1) {
-          setThoughtLogs(prev => [...prev, 'User seems interested in AI technology. Searching for relevant content...', 'Found interesting YouTube video about AI agents. This should be relevant.']);
-        } else {
-          setThoughtLogs(prev => [...prev, 'User might prefer different type of content...', 'Found a different perspective on AI and programming. This might be more suitable.']);
-        }
+        setThoughtLogs(prev => [...prev, 'User seems interested in AI technology. Searching for relevant content...', 'Found interesting YouTube video about AI agents. This should be relevant.']);
       }, 3000);
     }, 3000);
   };
-
-  // Auto-trigger new search cycle after showing results
-  useEffect(() => {
-    if (currentState === 'results') {
-      const autoSearchTimer = setTimeout(() => {
-        setSearchCycle(prev => prev + 1);
-        startListening();
-      }, 10000); // Wait 10 seconds before starting new cycle
-
-      return () => clearTimeout(autoSearchTimer);
-    }
-  }, [currentState, searchCycle]);
-
   const resetToIdle = () => {
     setCurrentState('idle');
     setThoughtLogs([]);
-    setSearchCycle(1);
   };
-
   const getStateText = () => {
     switch (currentState) {
       case 'listening':
@@ -71,7 +37,6 @@ const Index = () => {
         return 'Ready to listen';
     }
   };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
       {/* Background Pattern */}
@@ -83,6 +48,9 @@ const Index = () => {
       )}>
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col items-center justify-center p-8 bg-zinc-950">
+          {/* Header */}
+          
+
           {/* Central Content */}
           <div className="flex flex-col items-center space-y-8 max-w-4xl w-full">
             {/* Listening Circle */}
@@ -92,6 +60,7 @@ const Index = () => {
 
             {/* State Text */}
             <div className="text-center">
+              
               {currentState === 'idle'}
             </div>
 
@@ -105,6 +74,16 @@ const Index = () => {
               </Button>
             )}
 
+            {currentState === 'results' && (
+              <Button 
+                onClick={resetToIdle} 
+                variant="outline" 
+                className="border-slate-300 text-slate-700 hover:bg-slate-50 px-6 py-2 rounded-full"
+              >
+                Start New Search
+              </Button>
+            )}
+
             {/* Website Icons */}
             {currentState === 'results' && (
               <div className="w-full animate-fade-in">
@@ -115,7 +94,7 @@ const Index = () => {
             {/* Video Widget */}
             {currentState === 'results' && (
               <div className="w-full max-w-2xl animate-fade-in">
-                <VideoWidget searchCycle={searchCycle} />
+                <VideoWidget />
               </div>
             )}
           </div>
