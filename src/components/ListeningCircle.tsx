@@ -20,26 +20,24 @@ const ListeningCircle = ({ isActive, state }: ListeningCircleProps) => {
       {/* Main circle */}
       <div className={cn(
         "relative w-28 h-28 rounded-full transition-all duration-500 flex items-center justify-center",
-        isActive 
-          ? "bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg" 
-          : "bg-white border-2 border-slate-200 shadow-md hover:shadow-lg"
+        "bg-white border-2 border-slate-200 shadow-md hover:shadow-lg"
       )}>
         {/* Inner animation based on state */}
         {state === 'listening' && (
           <div className="flex space-x-1">
-            <div className="w-1 h-6 bg-white rounded-full animate-pulse" />
-            <div className="w-1 h-8 bg-white rounded-full animate-pulse animation-delay-100" />
-            <div className="w-1 h-4 bg-white rounded-full animate-pulse animation-delay-200" />
-            <div className="w-1 h-7 bg-white rounded-full animate-pulse animation-delay-300" />
+            <div className="w-1 h-6 bg-slate-400 rounded-full animate-pulse" />
+            <div className="w-1 h-8 bg-slate-400 rounded-full animate-pulse animation-delay-100" />
+            <div className="w-1 h-4 bg-slate-400 rounded-full animate-pulse animation-delay-200" />
+            <div className="w-1 h-7 bg-slate-400 rounded-full animate-pulse animation-delay-300" />
           </div>
         )}
         
         {state === 'searching' && (
-          <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+          <div className="w-6 h-6 border-2 border-slate-400 border-t-transparent rounded-full animate-spin" />
         )}
         
         {state === 'results' && (
-          <div className="w-4 h-4 bg-white rounded-full" />
+          <div className="w-4 h-4 bg-slate-400 rounded-full" />
         )}
         
         {/* Removed the gray dot for idle state */}
