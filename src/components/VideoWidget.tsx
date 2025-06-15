@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play } from 'lucide-react';
@@ -134,20 +133,23 @@ const VideoWidget = ({ searchCycle }: VideoWidgetProps) => {
         )}
       </div>
 
-      {/* Website Icons */}
-      <div className="flex justify-center space-x-6 mb-4">
-        {websiteIcons.map((website, index) => (
-          <div
-            key={website.name}
-            className="w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-200 hover:scale-110 cursor-pointer"
-          >
-            <img 
-              src={website.icon} 
-              alt={website.name}
-              className="w-8 h-8 object-contain"
-            />
-          </div>
-        ))}
+      {/* Sources Section */}
+      <div className="mb-4">
+        <h3 className="text-slate-300 text-sm font-medium mb-3 text-center">Sources</h3>
+        <div className="flex justify-center space-x-3">
+          {websiteIcons.map((website, index) => (
+            <div
+              key={website.name}
+              className="w-10 h-10 flex items-center justify-center hover:scale-110 transition-all duration-200 cursor-pointer"
+            >
+              <img 
+                src={website.icon} 
+                alt={website.name}
+                className="w-8 h-8 object-contain"
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* AI Commentary */}
