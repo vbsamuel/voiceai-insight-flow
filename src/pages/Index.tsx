@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import ListeningCircle from '../components/ListeningCircle';
 import WebsiteIcons from '../components/WebsiteIcons';
@@ -43,17 +42,34 @@ const Index = () => {
     }
   }, [currentState]);
 
-  const startListening = () => {
-    setCurrentState('listening');
-    setThoughtLogs(['Starting voice recognition...']);
-    setTimeout(() => {
-      setCurrentState('searching');
-      setThoughtLogs(prev => [...prev, 'Processing voice input... analyzing user interests']);
+  const startListening = async () => {
+    console.log('Starting microphone permission request...');
+    try {
+      // Request microphone permission
+      console.log('Requesting microphone access...');
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      console.log('Microphone access granted!');
+      
+      // If permission granted, start the listening process
+      setCurrentState('listening');
+      setThoughtLogs(['Starting voice recognition...']);
+      
       setTimeout(() => {
-        setCurrentState('results');
-        setThoughtLogs(prev => [...prev, 'User seems interested in AI technology. Searching for relevant content...', 'Found interesting YouTube video about AI agents. This should be relevant.']);
+        setCurrentState('searching');
+        setThoughtLogs(prev => [...prev, 'Processing voice input... analyzing user interests']);
+        setTimeout(() => {
+          setCurrentState('results');
+          setThoughtLogs(prev => [...prev, 'User seems interested in AI technology. Searching for relevant content...', 'Found interesting YouTube video about AI agents. This should be relevant.']);
+        }, 3000);
       }, 3000);
-    }, 3000);
+
+      // Stop the stream after we're done
+      stream.getTracks().forEach(track => track.stop());
+    } catch (error) {
+      console.error('Error accessing microphone:', error);
+      setThoughtLogs(['Error: Could not access microphone. Please ensure you have granted microphone permissions.']);
+      setCurrentState('idle');
+    }
   };
 
   const resetToIdle = () => {
@@ -105,7 +121,12 @@ const Index = () => {
             {/* Controls */}
             {currentState === 'idle' && (
               <Button 
-                onClick={startListening} 
+                onClick={() => {
+                  console.log('Button clicked');
+                  startListening().catch(error => {
+                    console.error('Error in startListening:', error);
+                  });
+                }}
                 className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-3 rounded-full text-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 Start Listening
