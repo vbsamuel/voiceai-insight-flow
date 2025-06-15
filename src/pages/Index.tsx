@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import ListeningCircle from '../components/ListeningCircle';
 import WebsiteIcons from '../components/WebsiteIcons';
@@ -5,10 +6,43 @@ import VideoWidget from '../components/VideoWidget';
 import ThoughtProcessSidebar from '../components/ThoughtProcessSidebar';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-type AppState = 'idle' | 'listening' | 'searching' | 'results';
+
+type AppState = 'idle' | 'listening' | 'searching' | 'results' | 'listening-again';
+
 const Index = () => {
   const [currentState, setCurrentState] = useState<AppState>('idle');
   const [thoughtLogs, setThoughtLogs] = useState<string[]>([]);
+  const [searchCycle, setSearchCycle] = useState(1);
+
+  // Auto-transition from results to listening again after 10 seconds
+  useEffect(() => {
+    if (currentState === 'results') {
+      const timer = setTimeout(() => {
+        setCurrentState('listening-again');
+        setThoughtLogs(prev => [...prev, "User doesn't seem satisfied with my suggestion. Let me listen for more feedback..."]);
+        
+        // After 10 seconds of listening, start searching again
+        const listeningTimer = setTimeout(() => {
+          setCurrentState('searching');
+          setThoughtLogs(prev => [...prev, "I think the user didn't like what I suggested, so I'm going to search something else", "Looking for different content that might be more interesting..."]);
+          
+          // After 3 seconds of searching, show new results
+          const searchingTimer = setTimeout(() => {
+            setCurrentState('results');
+            setSearchCycle(2);
+            setThoughtLogs(prev => [...prev, "Found a different video about AI and programming. This might be more relevant to their interests."]);
+          }, 3000);
+          
+          return () => clearTimeout(searchingTimer);
+        }, 10000);
+        
+        return () => clearTimeout(listeningTimer);
+      }, 10000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [currentState]);
+
   const startListening = () => {
     setCurrentState('listening');
     setThoughtLogs(['Starting voice recognition...']);
@@ -21,13 +55,17 @@ const Index = () => {
       }, 3000);
     }, 3000);
   };
+
   const resetToIdle = () => {
     setCurrentState('idle');
     setThoughtLogs([]);
+    setSearchCycle(1);
   };
+
   const getStateText = () => {
     switch (currentState) {
       case 'listening':
+      case 'listening-again':
         return 'Listening...';
       case 'searching':
         return 'Searching...';
@@ -37,6 +75,7 @@ const Index = () => {
         return 'Ready to listen';
     }
   };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
       {/* Background Pattern */}
@@ -48,19 +87,18 @@ const Index = () => {
       )}>
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col items-center justify-center p-8 bg-zinc-950">
-          {/* Header */}
-          
-
           {/* Central Content */}
           <div className="flex flex-col items-center space-y-8 max-w-4xl w-full">
             {/* Listening Circle */}
             <div className="relative">
-              <ListeningCircle isActive={currentState === 'listening' || currentState === 'searching'} state={currentState} />
+              <ListeningCircle 
+                isActive={currentState === 'listening' || currentState === 'searching' || currentState === 'listening-again'} 
+                state={currentState === 'listening-again' ? 'listening' : currentState} 
+              />
             </div>
 
             {/* State Text */}
             <div className="text-center">
-              
               {currentState === 'idle'}
             </div>
 
@@ -74,16 +112,6 @@ const Index = () => {
               </Button>
             )}
 
-            {currentState === 'results' && (
-              <Button 
-                onClick={resetToIdle} 
-                variant="outline" 
-                className="border-slate-300 text-slate-700 hover:bg-slate-50 px-6 py-2 rounded-full"
-              >
-                Start New Search
-              </Button>
-            )}
-
             {/* Website Icons */}
             {currentState === 'results' && (
               <div className="w-full animate-fade-in">
@@ -94,7 +122,7 @@ const Index = () => {
             {/* Video Widget */}
             {currentState === 'results' && (
               <div className="w-full max-w-2xl animate-fade-in">
-                <VideoWidget />
+                <VideoWidget searchCycle={searchCycle} />
               </div>
             )}
           </div>
