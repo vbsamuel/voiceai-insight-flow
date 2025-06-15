@@ -12,14 +12,14 @@ const ListeningCircle = ({ isActive, state }: ListeningCircleProps) => {
       {/* Outer pulsing rings */}
       {isActive && (
         <>
-          <div className="absolute w-32 h-32 rounded-full bg-blue-400 opacity-20 animate-ping" />
-          <div className="absolute w-24 h-24 rounded-full bg-blue-500 opacity-30 animate-ping animation-delay-200" />
+          <div className="absolute w-40 h-40 rounded-full bg-blue-400 opacity-20 animate-ping" />
+          <div className="absolute w-32 h-32 rounded-full bg-blue-500 opacity-30 animate-ping animation-delay-200" />
         </>
       )}
       
       {/* Main circle */}
       <div className={cn(
-        "relative w-20 h-20 rounded-full transition-all duration-500 flex items-center justify-center",
+        "relative w-28 h-28 rounded-full transition-all duration-500 flex items-center justify-center",
         isActive 
           ? "bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg" 
           : "bg-white border-2 border-slate-200 shadow-md hover:shadow-lg"
@@ -42,9 +42,7 @@ const ListeningCircle = ({ isActive, state }: ListeningCircleProps) => {
           <div className="w-4 h-4 bg-white rounded-full" />
         )}
         
-        {state === 'idle' && (
-          <div className="w-4 h-4 bg-slate-400 rounded-full" />
-        )}
+        {/* Removed the gray dot for idle state */}
       </div>
     </div>
   );
