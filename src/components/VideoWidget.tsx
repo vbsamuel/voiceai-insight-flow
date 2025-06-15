@@ -57,6 +57,25 @@ const VideoWidget = ({ searchCycle }: VideoWidgetProps) => {
   const embedUrl = `https://www.youtube.com/embed/${videoData.videoId}?autoplay=${isPlaying ? 1 : 0}&rel=0&modestbranding=1`;
   const thumbnailUrl = `https://img.youtube.com/vi/${videoData.videoId}/maxresdefault.jpg`;
 
+  const websiteIcons = [
+    {
+      name: 'Reddit',
+      icon: 'https://cdn3.iconfinder.com/data/icons/2018-social-media-logotypes/1000/2018_social_media_popular_app_logo_reddit-512.png'
+    },
+    {
+      name: 'YouTube',
+      icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/2560px-YouTube_full-color_icon_%282017%29.svg.png'
+    },
+    {
+      name: 'Twitter',
+      icon: 'https://upload.wikimedia.org/wikipedia/commons/2/28/X_icon_black.svg'
+    },
+    {
+      name: 'Langchain',
+      icon: 'https://brandlogos.net/wp-content/uploads/2025/03/langchain-logo_brandlogos.net_9zgaw.png'
+    }
+  ];
+
   return (
     <div className="rounded-2xl shadow-xl p-6 animate-fade-in bg-zinc-950">
       <div className="aspect-video bg-black rounded-xl mb-4 relative overflow-hidden">
@@ -113,6 +132,22 @@ const VideoWidget = ({ searchCycle }: VideoWidgetProps) => {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Website Icons */}
+      <div className="flex justify-center space-x-6 mb-4">
+        {websiteIcons.map((website, index) => (
+          <div
+            key={website.name}
+            className="w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-200 hover:scale-110 cursor-pointer"
+          >
+            <img 
+              src={website.icon} 
+              alt={website.name}
+              className="w-8 h-8 object-contain"
+            />
+          </div>
+        ))}
       </div>
 
       {/* AI Commentary */}
