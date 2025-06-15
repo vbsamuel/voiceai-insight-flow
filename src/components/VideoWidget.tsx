@@ -32,7 +32,7 @@ const VideoWidget = ({ searchCycle }: VideoWidgetProps) => {
   const getVideoData = () => {
     if (searchCycle === 1) {
       return {
-        videoId: "ftJ9cyYrLbY",
+        videoId: "dQw4w9WgXcQ",
         title: "Building an AI Agent with function calling step-by-step (in 26 minutes)",
         channel: "Nicholas Renotte",
         views: "23K views",
