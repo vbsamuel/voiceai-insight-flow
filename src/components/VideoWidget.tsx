@@ -149,7 +149,7 @@ const VideoWidget = ({ searchCycle }: VideoWidgetProps) => {
           {websiteIcons.map((website, index) => (
             <div
               key={website.name}
-              className="w-8 h-8 rounded-full overflow-hidden shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110 cursor-pointer border-2 border-zinc-950"
+              className="w-8 h-8 rounded-full overflow-hidden shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110 cursor-pointer border-2 border-white"
               style={{ zIndex: websiteIcons.length - index }}
             >
               <img 
